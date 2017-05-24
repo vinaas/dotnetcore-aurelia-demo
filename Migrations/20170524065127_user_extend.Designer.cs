@@ -8,9 +8,10 @@ using dotnetcore_aurelia_demo.Infrastructure;
 namespace dotnetcore_aurelia_demo.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    partial class MainDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170524065127_user_extend")]
+    partial class user_extend
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
