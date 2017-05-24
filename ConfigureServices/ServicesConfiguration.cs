@@ -11,7 +11,7 @@ namespace dotnetcore_aurelia_demo.ConfigureServices
         public static IServiceCollection AddCustomizedIdentity(this IServiceCollection services)
         {
             services
-                .AddIdentity<MainDbContext, IdentityRole>()
+                .AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<MainDbContext>()
                 .AddDefaultTokenProviders();
             services.Configure<IdentityOptions>(options =>
