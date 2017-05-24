@@ -11,7 +11,7 @@ namespace my_app.Controllers
         public IActionResult Index()
         {
             var userService = new UserServices("");
-            if (userService.GetListUser())
+            if (userService.GetListUser()) return Ok();
             
             return View();
         }
