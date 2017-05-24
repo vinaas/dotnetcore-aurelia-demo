@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using my_app.Infrastructure;
+using dotnetcore_aurelia_demo.Infrastructure;
 
-namespace my_app.Migrations
+namespace dotnetcore_aurelia_demo.Migrations
 {
     [DbContext(typeof(MainDbContext))]
     partial class MainDbContextModelSnapshot : ModelSnapshot
@@ -16,7 +16,7 @@ namespace my_app.Migrations
                 .HasAnnotation("ProductVersion", "1.1.1")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("my_app.Infrastructure.Person", b =>
+            modelBuilder.Entity("dotnetcore_aurelia_demo.Infrastructure.Person", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();

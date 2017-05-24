@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 
-namespace my_app
+namespace dotnetcore_aurelia_demo
 {
     public class Program
     {

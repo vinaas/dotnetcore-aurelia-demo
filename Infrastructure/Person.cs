@@ -1,4 +1,4 @@
-namespace my_app.Infrastructure
+namespace dotnetcore_aurelia_demo.Infrastructure
 {
     public class Person
     {

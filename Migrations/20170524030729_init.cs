@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace my_app.Migrations
+namespace dotnetcore_aurelia_demo.Migrations
 {
     public partial class init : Migration
     {

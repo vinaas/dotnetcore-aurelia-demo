@@ -4,14 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace my_app.Controllers
+namespace dotnetcore_aurelia_demo.Controllers
 {
     public class HomeController : Controller
     {
         public IActionResult Index()
         {
-            var userService = new UserServices("");
-            if (userService.GetListUser()) return Ok();
+            // var userService = new UserServices("");
+            // if (userService.GetListUser()) return Ok();
             
             return View();
         }
