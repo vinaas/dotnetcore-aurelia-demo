@@ -32,7 +32,7 @@ namespace dotnetcore_aurelia_demo.Controllers
         [Route("Register")]
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
-                      
+
             var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
@@ -47,7 +47,8 @@ namespace dotnetcore_aurelia_demo.Controllers
 
                 return Ok();
             }
-            return BadRequest();
+            else
+                return BadRequest();
         }
         [HttpGet]
         [AllowAnonymous]
