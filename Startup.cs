@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-
+using dotnetcore_aurelia_demo.ConfigureServices;
 namespace dotnetcore_aurelia_demo
 {
     public class Startup
@@ -35,9 +35,8 @@ namespace dotnetcore_aurelia_demo
 
             services.AddDbContext<MainDbContext>(options =>
                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddIdentity<MainDbContext, IdentityRole>()
-                .AddEntityFrameworkStores<MainDbContext>()
-                .AddDefaultTokenProviders();
+            services.AddCustomizedIdentity();
+
             services.AddMvc();
         }
 
