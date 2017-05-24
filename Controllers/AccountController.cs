@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace dotnetcore_aurelia_demo.Controllers
 {
+     [Route("api/[controller]")]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
