@@ -35,8 +35,9 @@ namespace dotnetcore_aurelia_demo
         {
             // Add framework services.
 
-            services.AddDbContext<MainDbContext>(options =>
-               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            // services.AddDbContext<MainDbContext>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<MainDbContext>(ops=> ops.UseInMemoryDatabase());
             services.AddCustomizedIdentity();
 
             services.AddMvc();
