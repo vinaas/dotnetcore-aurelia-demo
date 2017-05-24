@@ -2,11 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using dotnetcore_aurelia_demo.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace dotnetcore_aurelia_demo
@@ -29,6 +32,12 @@ namespace dotnetcore_aurelia_demo
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+
+            services.AddDbContext<MainDbContext>(options =>
+               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddIdentity<MainDbContext, IdentityRole>()
+                .AddEntityFrameworkStores<MainDbContext>()
+                .AddDefaultTokenProviders();
             services.AddMvc();
         }
 
@@ -42,7 +51,8 @@ namespace dotnetcore_aurelia_demo
             {
                 app.UseDeveloperExceptionPage();
 
-                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions {
+                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+                {
                     HotModuleReplacement = true
                 });
             }
