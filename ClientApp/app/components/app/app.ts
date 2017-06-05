@@ -13,12 +13,12 @@ export class App {
             nav: true,
             title: 'login'
         }, {
-            route: 'dashbboard',
-            name: 'dashbboard',
+            route: 'admin',
+            name: 'admin',
             settings: { icon: 'education' },
-            moduleId: PLATFORM.moduleName('../dashboard/dashboard'),
+            moduleId: PLATFORM.moduleName('../admin/admin'),
             nav: true,
-            title: 'dashboard'
+            title: 'admin'
         }
         ]);
 

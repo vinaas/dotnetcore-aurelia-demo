@@ -1,10 +1,11 @@
 const path = require('path');
 const webpack = require('webpack');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 const {
     AureliaPlugin
 } = require('aurelia-webpack-plugin');
 const bundleOutputDir = './wwwroot/dist';
-
+const themeDir = './ClientApp/theme';
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
     return [{
@@ -49,6 +50,7 @@ module.exports = (env) => {
                     test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                     loader: "file-loader"
                 }
+
             ]
         },
         plugins: [
@@ -63,6 +65,11 @@ module.exports = (env) => {
                 context: __dirname,
                 manifest: require('./wwwroot/dist/vendor-manifest.json')
             }),
+            new CopyWebpackPlugin([{
+                from: path.resolve('./ClientApp/theme'),
+                to: path.resolve('./wwwroot/dist/theme')
+            }]),
+
             new AureliaPlugin({
                 aureliaApp: 'boot'
             })
@@ -73,6 +80,7 @@ module.exports = (env) => {
             })
         ] : [
             new webpack.optimize.UglifyJsPlugin()
-        ])
+
+        ]),
     }];
 }

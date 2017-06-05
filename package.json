@@ -1,6 +1,9 @@
 {
   "name": "dotnetcore_aurelia_demo",
   "version": "0.0.0",
+  "scripts": {
+    "test": "webpack"
+  },
   "dependencies": {
     "aurelia-bootstrapper": "^2.0.1",
     "aurelia-fetch-client": "^1.0.1",
@@ -19,6 +22,7 @@
     "@types/node": "^7.0.12",
     "aspnet-webpack": "^1.0.28",
     "aurelia-webpack-plugin": "^2.0.0-rc.2",
+    "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.0",
     "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.11.1",

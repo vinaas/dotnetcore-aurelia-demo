@@ -2,8 +2,9 @@ import 'isomorphic-fetch';
 import { Aurelia, PLATFORM } from 'aurelia-framework';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap';
-import '../ClientApp/theme/adminLTE/js/app.min.js';
-import '../ClientApp/theme/adminLTE/js/demo.js';
+PLATFORM.global.$ = PLATFORM.global.jQuery = require("jquery");
+// import '../ClientApp/theme/adminLTE/js/app.min.js';
+// import '../ClientApp/theme/adminLTE/js/demo.js';
 declare const IS_DEV_BUILD: boolean; // The value is supplied by Webpack during the build
 
 export function configure(aurelia: Aurelia) {
