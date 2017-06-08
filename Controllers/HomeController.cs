@@ -10,6 +10,7 @@ namespace dotnetcore_aurelia_demo.Controllers
     {
         public IActionResult Index()
         {
+            
             // var userService = new UserServices("");
             // if (userService.GetListUser()) return Ok();
             

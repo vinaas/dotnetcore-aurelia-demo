@@ -29,8 +29,8 @@ namespace dotnetcore_aurelia_demo.ConfigureServices
 
                     // Cookie settings
                     options.Cookies.ApplicationCookie.ExpireTimeSpan = TimeSpan.FromDays(150);
-                    options.Cookies.ApplicationCookie.LoginPath = "/Account/LogIn";
-                    options.Cookies.ApplicationCookie.LogoutPath = "/Account/LogOut";
+                    options.Cookies.ApplicationCookie.LoginPath = "/#/login";
+                    options.Cookies.ApplicationCookie.LogoutPath = "/#/logOut";
 
                     // User settings
                     options.User.RequireUniqueEmail = true;
