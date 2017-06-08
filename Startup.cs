@@ -13,13 +13,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using dotnetcore_aurelia_demo.ConfigureServices;
 using Swashbuckle.AspNetCore.Swagger;
-
+using Microsoft.AspNetCore.Http;
+using NLog.Extensions.Logging;
+using NLog.Web;
 namespace dotnetcore_aurelia_demo
 {
     public class Startup
     {
         public Startup(IHostingEnvironment env)
         {
+            env.ConfigureNLog("nlog.config");
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -35,16 +38,17 @@ namespace dotnetcore_aurelia_demo
         {
             // Add framework services.
 
-            // services.AddDbContext<MainDbContext>(options =>
-            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDbContext<MainDbContext>(ops=> ops.UseInMemoryDatabase());
-            services.AddCustomizedIdentity();
-
+            services.AddDbContext<MainDbContext>(options =>
+               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            // services.AddDbContext<MainDbContext>(ops => ops.UseInMemoryDatabase());
             services.AddMvc();
+            services.AddCustomizedIdentity();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
             });
+            //call this in case you need aspnet-user-authtype/aspnet-user-identity
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,6 +70,11 @@ namespace dotnetcore_aurelia_demo
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            loggerFactory.AddNLog();
+
+            //add NLog.Web
+            app.AddNLogWeb();
+
 
             app.UseSwagger();
 
@@ -74,8 +83,7 @@ namespace dotnetcore_aurelia_demo
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
-
-
+            app.UseIdentity();
             app.UseStaticFiles();
             app.UseMvc(routes =>
             {
@@ -87,6 +95,7 @@ namespace dotnetcore_aurelia_demo
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });
             });
+
 
         }
     }
