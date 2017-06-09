@@ -5,6 +5,7 @@ using dotnetcore_aurelia_demo.Infrastructure;
 using dotnetcore_aurelia_demo.Models.AccountViewModels;
 using dotnetcore_aurelia_demo.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,11 +16,13 @@ namespace dotnetcore_aurelia_demo.Controllers
     {
         private readonly UserServiceInterface _userService;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IMapper _mapper;
         public UsersController(UserServiceInterface userService, IMapper mapper)
         {
             _userService = userService;
             _userManager = _userService.GetUserManager();
+            _roleManager = _userService.GetRoleManager();
             _mapper = mapper;
         }
         [HttpGet]
@@ -56,6 +59,33 @@ namespace dotnetcore_aurelia_demo.Controllers
             if (user == null) return NotFound();
             await _userManager.DeleteAsync(user);
             return new ObjectResult(_mapper.Map<ApplicationUser, UserDto>(user));
+        }
+        public async Task<IActionResult> ManageRolesInUser(RolesInUserModel rolesInUser)
+        {
+            var user = await _userManager.FindByIdAsync(rolesInUser.Id);
+            if (user == null) return NotFound();
+            foreach (var roleId in rolesInUser.EnrolledRoles)
+            {
+                var role = await _roleManager.FindByIdAsync(roleId);
+                if (role == null) continue;
+                bool isInRole = await _userManager.IsInRoleAsync(user, role.Name);
+                if (!isInRole)
+                {
+                    await _userManager.AddToRoleAsync(user, role.Name);
+                }
+            }
+            foreach (var roleId in rolesInUser.RemovedRoles)
+            {
+                var role = await _roleManager.FindByIdAsync(roleId);
+                if (role == null) continue;
+                bool isInRole = await _userManager.IsInRoleAsync(user, role.Name);
+                if (isInRole)
+                {
+                    await _userManager.RemoveFromRoleAsync(user, role.Name);
+                }
+            }
+            return Ok();
+
         }
 
     }
