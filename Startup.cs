@@ -16,6 +16,10 @@ using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.AspNetCore.Http;
 using NLog.Extensions.Logging;
 using NLog.Web;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
+using AutoMapper;
+
 namespace dotnetcore_aurelia_demo
 {
     public class Startup
@@ -41,7 +45,11 @@ namespace dotnetcore_aurelia_demo
             services.AddDbContext<MainDbContext>(options =>
                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             // services.AddDbContext<MainDbContext>(ops => ops.UseInMemoryDatabase());
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(options =>
+            {
+                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            }); ;
             services.AddCustomizedIdentity();
             services.AddSwaggerGen(c =>
             {
@@ -49,6 +57,9 @@ namespace dotnetcore_aurelia_demo
             });
             //call this in case you need aspnet-user-authtype/aspnet-user-identity
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            // add automapper
+            services.AddAutoMapper();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,7 +84,7 @@ namespace dotnetcore_aurelia_demo
             loggerFactory.AddNLog();
 
             //add NLog.Web
-            app.AddNLogWeb();
+            // app.AddNLogWeb();
 
 
             app.UseSwagger();
