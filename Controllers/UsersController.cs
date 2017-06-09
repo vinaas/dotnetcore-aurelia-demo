@@ -60,9 +60,10 @@ namespace dotnetcore_aurelia_demo.Controllers
             await _userManager.DeleteAsync(user);
             return new ObjectResult(_mapper.Map<ApplicationUser, UserDto>(user));
         }
-        public async Task<IActionResult> ManageRolesInUser(RolesInUserModel rolesInUser)
+        [HttpPost("[action]/{id}")]
+        public async Task<IActionResult> ManageRolesInUser(string id, RolesInUserModel rolesInUser)
         {
-            var user = await _userManager.FindByIdAsync(rolesInUser.Id);
+            var user = await _userManager.FindByIdAsync(id);
             if (user == null) return NotFound();
             foreach (var roleId in rolesInUser.EnrolledRoles)
             {
