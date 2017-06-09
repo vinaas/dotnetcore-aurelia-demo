@@ -11,7 +11,6 @@ namespace dotnetcore_aurelia_demo.Controllers
     public class RolesController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly UserServiceInterface _userService;
         public RolesController(UserServiceInterface userService)
         {
             _roleManager = userService.GetRoleManager();
@@ -50,6 +49,6 @@ namespace dotnetcore_aurelia_demo.Controllers
             await _roleManager.DeleteAsync(r);
             return new ObjectResult(r);
         }
-
+        
     }
 }
