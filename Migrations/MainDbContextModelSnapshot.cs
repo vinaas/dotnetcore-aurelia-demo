@@ -23,6 +23,8 @@ namespace dotnetcore_aurelia_demo.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<string>("Address");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
@@ -34,12 +36,10 @@ namespace dotnetcore_aurelia_demo.Migrations
                     b.Property<string>("FirstName")
                         .HasMaxLength(100);
 
-                    b.Property<DateTime>("JoinDate");
+                    b.Property<string>("Gender");
 
                     b.Property<string>("LastName")
                         .HasMaxLength(100);
-
-                    b.Property<byte>("Level");
 
                     b.Property<bool>("LockoutEnabled");
 
