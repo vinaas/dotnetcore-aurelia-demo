@@ -8,7 +8,7 @@ namespace dotnetcore_aurelia_demo.ConfigureServices
     {
         public MapperConfiguration()
         {
-            CreateMap<ApplicationUser, LoginResultModel>();
+            CreateMap<ApplicationUser, UserDto>();
         }
     }
 }
